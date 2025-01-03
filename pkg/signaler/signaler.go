@@ -183,7 +183,7 @@ func (s *Signaler) HandleTurnServerCredentials(writer http.ResponseWriter, reque
 func (s *Signaler) Send(conn *websocket.WebSocketConn, m interface{}) error {
 	data, err := json.Marshal(m)
 	if err != nil {
-		logger.Errorf(err.Error())
+		logger.Errorf("%s", err.Error())
 		return err
 	}
 	return conn.Send(string(data))

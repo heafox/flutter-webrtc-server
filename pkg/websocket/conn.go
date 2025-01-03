@@ -62,7 +62,7 @@ func (conn *WebSocketConn) ReadMessage() {
 
 	for {
 		select {
-		case _ = <-pingTicker.C:
+		case <-pingTicker.C:
 			logger.Infof("Send keepalive !!!")
 			if err := conn.Send("{}"); err != nil {
 				logger.Errorf("Keepalive has failed")
@@ -99,11 +99,11 @@ func (conn *WebSocketConn) Send(message string) error {
 func (conn *WebSocketConn) Close() {
 	conn.mutex.Lock()
 	defer conn.mutex.Unlock()
-	if conn.closed == false {
-		logger.Infof("Close ws conn now : ", conn)
+	if !conn.closed {
+		logger.Infof("Close ws conn now : %v", conn)
 		conn.socket.Close()
 		conn.closed = true
 	} else {
-		logger.Warnf("Transport already closed :", conn)
+		logger.Warnf("Transport already closed : %v", conn)
 	}
 }
