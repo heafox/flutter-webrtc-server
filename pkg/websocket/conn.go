@@ -63,7 +63,7 @@ func (conn *WebSocketConn) ReadMessage() {
 	for {
 		select {
 		case <-pingTicker.C:
-			logger.Infof("Send keepalive !!!")
+			//logger.Infof("Send keepalive !!!")
 			if err := conn.Send("{}"); err != nil {
 				logger.Errorf("Keepalive has failed")
 				pingTicker.Stop()

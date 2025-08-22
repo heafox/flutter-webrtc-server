@@ -130,10 +130,7 @@ func (s *Signaler) HandleTurnServerCredentials(writer http.ResponseWriter, reque
 	writer.Header().Set("Content-Type", "application/json")
 	writer.Header().Set("Access-Control-Allow-Origin", "*")
 
-	params, err := url.ParseQuery(request.URL.RawQuery)
-	if err != nil {
-
-	}
+	params, _ := url.ParseQuery(request.URL.RawQuery)
 	logger.Debugf("%v", params)
 	service := params["service"][0]
 	if service != "turn" {
@@ -223,7 +220,6 @@ func (s *Signaler) HandleNewWebSocket(conn *websocket.WebSocketConn, request *ht
 				info: info,
 			}
 			s.NotifyPeersUpdate(conn, s.peers)
-			break
 		case Leave:
 		case Offer:
 			fallthrough
@@ -252,7 +248,6 @@ func (s *Signaler) HandleNewWebSocket(conn *websocket.WebSocketConn, request *ht
 				}
 				s.Send(peer.conn, request)
 			}
-			break
 		case Bye:
 			var bye Byebye
 			err := json.Unmarshal(body, &bye)

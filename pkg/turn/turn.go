@@ -17,17 +17,10 @@ type TurnServerConfig struct {
 func DefaultConfig() TurnServerConfig {
 	return TurnServerConfig{
 		PublicIP: "127.0.0.1",
-		Port:     19302,
+		Port:     3478,
 		Realm:    "flutter-webrtc",
 	}
 }
-
-/*
-if key, ok := usersMap[username]; ok {
-				return key, true
-			}
-			return nil, false
-*/
 
 type TurnServer struct {
 	udpListener net.PacketConn
